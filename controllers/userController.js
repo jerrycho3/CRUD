@@ -82,8 +82,10 @@ exports.updateUser = async (req, res) => {
     }
 
     //update password if provided
-    const salt = await bcrypt.genSalt(12);
-    user.password = await bcrypt.hash(password, salt);
+    if (password) {
+      const salt = await bcrypt.genSalt(12);
+      user.password = await bcrypt.hash(password, salt);
+    }
 
     await user.save();
 
